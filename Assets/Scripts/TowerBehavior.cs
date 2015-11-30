@@ -9,15 +9,14 @@ public class TowerBehavior : MonoBehaviour {
     #region
     public GameObject Shot;
     public GameObject Hydra;
-    static private int level;
-    float maxx = 4;
-    float minx = -4;
-    float maxz = 10;
-    float minz = -4;
+    public GameObject SpawnLocation;
+    private string slash = "SlashTower";
+    private string sniper = "SniperTower";
 
     Vector3 rotation;
 
     public float TimeTillShot;
+    public float SpinSpeed;
     float CoolDown;
     public int health;
     #endregion
@@ -26,11 +25,9 @@ public class TowerBehavior : MonoBehaviour {
     /// Unity's Start method. Inializes critical variables.
     /// </summary>
     void Start () {
-        level = 1;
 	    rotation.x = 0;
-        rotation.y = 2.5f;
+        rotation.y = 1f;
         rotation.z = 0;
-        health = Random.Range(20, 40);
 	}
 	
 	/// <summary>
@@ -45,8 +42,14 @@ public class TowerBehavior : MonoBehaviour {
     /// </summary>
     void Run()
     {
-        TimedShot();
-        Rotate();
+        if (transform.tag == slash)
+        {
+            Rotate();
+        }
+        else if (transform.tag == sniper)
+        {
+            TimedShot();
+        }
         DestroyedCheck();
     }
 
@@ -71,7 +74,7 @@ public class TowerBehavior : MonoBehaviour {
     /// </summary>
     void Rotate()
     {
-        transform.Rotate(rotation);
+        transform.Rotate(rotation * SpinSpeed);
     }
 
     /// <summary>
@@ -90,9 +93,6 @@ public class TowerBehavior : MonoBehaviour {
     {
         if (health <= 0)
         {
-            level++;
-            RandomSpawn();
-            RandomSpawn();
             Destroy(gameObject);
         }
     }
@@ -100,9 +100,8 @@ public class TowerBehavior : MonoBehaviour {
     /// <summary>
     /// This method spawns new towers in random locations about the play area.
     /// </summary>
-    void RandomSpawn()
+    public void Spawn()
     {
-            Vector3 randomSpawn = new Vector3(Random.Range(minx, maxx),1.0f,Random.Range(minz, maxz));
-            Instantiate(Hydra, randomSpawn, Quaternion.identity);
+        Instantiate(Hydra, SpawnLocation.transform.position, Quaternion.identity);
     }
 }

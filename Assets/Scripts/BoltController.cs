@@ -9,7 +9,7 @@ public class BoltController : MonoBehaviour {
     #region
     public float Speed;
 
-    string player = "Player";
+    string enemy = "Enemy";
     string wall = "Wall";
     int power;
     #endregion
@@ -50,9 +50,9 @@ public class BoltController : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag(player))
+        if (other.transform.CompareTag(enemy))
         {
-            other.GetComponent<BallController>().ReduceHealth(power);
+            other.GetComponent<EnemyBehavior>().ReduceHealth(power);
             Destroy(gameObject);
         }
 
