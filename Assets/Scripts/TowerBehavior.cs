@@ -12,6 +12,7 @@ public class TowerBehavior : MonoBehaviour {
     public GameObject SpawnLocation;
     private string slash = "SlashTower";
     private string sniper = "SniperTower";
+    private string enemy = "Enemy";
 
     Vector3 rotation;
 
@@ -19,6 +20,7 @@ public class TowerBehavior : MonoBehaviour {
     public float SpinSpeed;
     float CoolDown;
     public int health;
+    public int power;
     #endregion
 
     /// <summary>
@@ -28,6 +30,7 @@ public class TowerBehavior : MonoBehaviour {
 	    rotation.x = 0;
         rotation.y = 1f;
         rotation.z = 0;
+        AssignHealthPower();
 	}
 	
 	/// <summary>
@@ -45,6 +48,7 @@ public class TowerBehavior : MonoBehaviour {
         if (transform.tag == slash)
         {
             Rotate();
+            Slash();
         }
         else if (transform.tag == sniper)
         {
@@ -103,5 +107,39 @@ public class TowerBehavior : MonoBehaviour {
     public void Spawn()
     {
         Instantiate(Hydra, SpawnLocation.transform.position, Quaternion.identity);
+    }
+
+    void Slash()
+    {
+        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
+
+        RaycastHit hit;
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 1f))
+        {
+            Debug.DrawRay(ray.origin, ray.direction, Color.green, 1f);
+            if (hit.transform.tag == enemy)
+            {
+                Attack(hit);
+            }
+        }
+    }
+
+    void Attack(RaycastHit hit)
+    {
+        hit.collider.GetComponent<EnemyBehavior>().ReduceHealth(power);
+    }
+
+    void AssignHealthPower()
+    {
+        if (transform.tag == sniper)
+        {
+            health = 20;
+            power = 0;
+        }
+        else if (transform.tag == slash)
+        {
+            health = 40;
+            power = 2;
+        }
     }
 }

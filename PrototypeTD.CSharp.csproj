@@ -70,8 +70,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BallController.cs" />
     <Compile Include="Assets\Scripts\BoltController.cs" />
+    <Compile Include="Assets\Scripts\CanvasText.cs" />
     <Compile Include="Assets\Scripts\CarrierBodyController.cs" />
     <Compile Include="Assets\Scripts\CharacterTokenController.cs" />
+    <Compile Include="Assets\Scripts\CityController.cs" />
     <Compile Include="Assets\Scripts\EnemyBehavior.cs" />
     <Compile Include="Assets\Scripts\EnemySpawnController.cs" />
     <Compile Include="Assets\Scripts\ExitPointController.cs" />
