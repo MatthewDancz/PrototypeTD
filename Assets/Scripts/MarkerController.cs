@@ -39,6 +39,16 @@ public class MarkerController : MonoBehaviour {
             transform.position = transform.position - transform.forward * Speed * Time.deltaTime;
         }
 
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position = transform.position - transform.right * Speed * Time.deltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position = transform.position + transform.right * Speed * Time.deltaTime;
+        }
+
         if (Input.GetKey(KeyCode.E))
         {
             rot.y = rot.y + TurnSpeed * Time.deltaTime;

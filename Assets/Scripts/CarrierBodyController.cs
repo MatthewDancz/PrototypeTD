@@ -14,6 +14,7 @@ public class CarrierBodyController : MonoBehaviour {
     void run()
     {
         Tilt();
+        Bank();
     }
 
     void Tilt()
@@ -31,6 +32,19 @@ public class CarrierBodyController : MonoBehaviour {
         else
         {
             tilt = new Vector3(Parent.rotation.x, Parent.rotation.y, Parent.rotation.z);
+            transform.localRotation = Quaternion.Euler(tilt);
+        }
+    }
+    void Bank()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            tilt = new Vector3(Parent.rotation.x, Parent.rotation.y, Parent.rotation.z + Degree);
+            transform.localRotation = Quaternion.Euler(tilt);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            tilt = new Vector3(Parent.rotation.x, Parent.rotation.y, Parent.rotation.z - Degree);
             transform.localRotation = Quaternion.Euler(tilt);
         }
     }

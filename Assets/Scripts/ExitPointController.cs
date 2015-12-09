@@ -9,7 +9,7 @@ public class ExitPointController : MonoBehaviour {
     #region
     public GameObject[] Exits;
     string ground = "Ground";
-    int RangeValue = 50;
+    int RangeValue = 49;
     #endregion
 
     /// <summary>
