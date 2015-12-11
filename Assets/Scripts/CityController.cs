@@ -1,13 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CityController : MonoBehaviour {
 
-    public int health = 100;
-    private string enemy = "Enemy";
+    public Slider slider;
+    public int Health = 20;
+    
+    void Start()
+    {
+        slider.maxValue = Health;
+        SetSliderToHealth();
+    }
 
     public void ReduceHealth()
     {
-        health = health - 1;
+        Health = Health - 1;
+        SetSliderToHealth();
+    }
+
+    void SetSliderToHealth()
+    {
+        slider.value = Health;
     }
 }

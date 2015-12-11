@@ -19,8 +19,8 @@ public class TowerBehavior : MonoBehaviour {
     public float TimeTillShot;
     public float SpinSpeed;
     float CoolDown;
-    public int health;
-    public int power;
+    public int Health;
+    public int Power;
     #endregion
 
     /// <summary>
@@ -87,7 +87,7 @@ public class TowerBehavior : MonoBehaviour {
     /// <param name="damage"></param>
     public void ReduceHealth(int damage)
     {
-        health = health - damage;
+        Health = Health - damage;
     }
 
     /// <summary>
@@ -95,7 +95,7 @@ public class TowerBehavior : MonoBehaviour {
     /// </summary>
     void DestroyedCheck()
     {
-        if (health <= 0)
+        if (Health <= 0)
         {
             Destroy(gameObject);
         }
@@ -126,20 +126,20 @@ public class TowerBehavior : MonoBehaviour {
 
     void Attack(RaycastHit hit)
     {
-        hit.collider.GetComponent<EnemyBehavior>().ReduceHealth(power);
+        hit.collider.GetComponent<EnemyBehavior>().ReduceHealth(Power);
     }
 
     void AssignHealthPower()
     {
         if (transform.tag == sniper)
         {
-            health = 20;
-            power = 0;
+            Health = 20;
+            Power = 0;
         }
         else if (transform.tag == slash)
         {
-            health = 40;
-            power = 2;
+            Health = 40;
+            Power = 2;
         }
     }
 }

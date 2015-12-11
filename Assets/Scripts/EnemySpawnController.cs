@@ -9,8 +9,11 @@ public class EnemySpawnController : MonoBehaviour {
     public float SpawnWait;
     public float StartWait;
     public float WaveWait;
+    public float xValue;
+    public float zValue;
 
-    // Use this for initialization
+    private Vector3 RandomPosition;
+
     void Start () {
         StartCoroutine(run());
 	}
@@ -25,6 +28,10 @@ public class EnemySpawnController : MonoBehaviour {
                 CreateSoldier();
                 yield return new WaitForSeconds(SpawnWait);
             }
+            if (transform.tag == "StartSpawn")
+            {
+                CreateNewAntHole();
+            }
             yield return new WaitForSeconds(WaveWait);
         }
     }
@@ -32,5 +39,11 @@ public class EnemySpawnController : MonoBehaviour {
     void CreateSoldier()
     {
         Instantiate(EnemyList[0], transform.position, transform.rotation);
+    }
+
+    void CreateNewAntHole()
+    {
+        RandomPosition = new Vector3(Random.Range(transform.position.x - xValue, transform.position.x + xValue), 0f, Random.Range(transform.position.z - zValue, transform.position.z + zValue));
+        Instantiate(EnemyList[1], RandomPosition, transform.rotation);
     }
 }

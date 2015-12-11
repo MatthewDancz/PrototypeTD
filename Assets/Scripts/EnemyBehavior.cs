@@ -10,17 +10,21 @@ public class EnemyBoundary
 public class EnemyBehavior : MonoBehaviour {
 
     public EnemyBoundary EnemyBoundary;
-    public float speed;
-    public int health;
-    public int power;
+    public float Speed;
+    private float AttackSpeed;
+    private float TimeToAttack;
+    public int Health;
+    public int Power;
     private string slash = "SlashTower";
     private string sniper = "SniperTower";
     private string city = "City";
 
 	// Use this for initialization
 	void Start () {
-        health = 2;
-        power = 2;
+        Health = 2;
+        Power = 2;
+        AttackSpeed = 0;
+        TimeToAttack = 2;
 	}
 	
 	// Update is called once per frame
@@ -50,7 +54,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     void Forward()
     {
-        GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().transform.forward * speed; ;
+        GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().transform.forward * Speed; ;
     }
 
     void Stop()
@@ -60,7 +64,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     void DestroyedCheck()
     {
-        if (health <= 0)
+        if (Health <= 0)
         {
             Destroy(gameObject);
         }
@@ -68,7 +72,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     public void ReduceHealth(int damage)
     {
-        health = health - damage;
+        Health = Health - damage;
     }
 
     void Clamp()
@@ -89,15 +93,13 @@ public class EnemyBehavior : MonoBehaviour {
         if (Physics.Raycast(ray.origin, ray.direction, out hit, 1f))
         {
             Debug.DrawRay(ray.origin, ray.direction, Color.green, 1f);
-            if (hit.transform.tag == slash)
+            if (hit.transform.tag == slash || hit.transform.tag == sniper)
             {
-                hit.collider.GetComponent<TowerBehavior>().ReduceHealth(power);
-                return true;
-            }
-            else if (hit.transform.tag == sniper)
-            {
-                hit.collider.GetComponent<TowerBehavior>().ReduceHealth(power);
-                return true;
+                if (AttackDelay() == false)
+                {
+                    hit.collider.GetComponent<TowerBehavior>().ReduceHealth(Power);
+                    return true;
+                }
             }
         }
         return false;
@@ -109,6 +111,20 @@ public class EnemyBehavior : MonoBehaviour {
         {
             other.GetComponent<CityController>().ReduceHealth();
             Destroy(gameObject);
+        }
+    }
+
+    private bool AttackDelay()
+    {
+        if (AttackSpeed > 0)
+        {
+            AttackSpeed -= Time.deltaTime;
+            return true;
+        }
+        else
+        {
+            AttackSpeed = TimeToAttack;
+            return false;
         }
     }
 }
