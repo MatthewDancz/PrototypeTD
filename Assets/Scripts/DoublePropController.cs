@@ -3,26 +3,41 @@ using System.Collections;
 
 public class DoublePropController : MonoBehaviour {
 
-    public Transform Parent;
-    private float degree;
-    private Vector3 tilt;
+    /// <summary>
+    /// This region contains all of the variables used in the DoublePropController class.
+    /// </summary>
+    #region Variables are Parent, degree, and tilt.
+    public Transform Parent; //The parent object set in the Unity Editor.
+    private float degree; //The degrees of rotation.
+    private Vector3 tilt; //The vector used to tilt the props.
+    #endregion
 
-	// Use this for initialization
-	void Start () {
+    /// <summary>
+    /// The Unity Start method sets the value of degree to fifteen.
+    /// </summary>
+    void Start () {
         degree = 15f;
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+    /// The Unity Update method, only executes the run method.
+    /// </summary>
 	void Update ()
     {
         run();
 	}
 
+    /// <summary>
+    /// The run method executes all methods needed each cycle.
+    /// </summary>
     void run()
     {
         Rotate();
     }
 
+    /// <summary>
+    /// The Rotate method checks the players input and adjusts the gameObjects local rotation as needed.
+    /// </summary>
     void Rotate()
     {
         if (Input.GetKey(KeyCode.Q))

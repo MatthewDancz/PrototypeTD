@@ -6,28 +6,28 @@ public class TowerBehavior : MonoBehaviour {
     /// <summary>
     /// This region contains most of the variables used in the TowerBehavior class.
     /// </summary>
-    #region
-    public GameObject Shot;
-    public GameObject Hydra;
-    public GameObject SpawnLocation;
-    private string slash = "SlashTower";
-    private string sniper = "SniperTower";
-    private string enemy = "Enemy";
+    #region Variables are Shot, SpawnLocation, slash, sniper, enemy, rotation, TimeTillShot, SpinSpeed, CoolDown, Health, Power, and Value.
+    public GameObject Shot; //A GameObject to be instantiated by the sniper tower, set in the Unity Editor.
 
-    Vector3 rotation;
+    private string slash = "SlashTower"; //A variable corresponding to the tag with value of SlashTower.
+    private string sniper = "SniperTower"; //A variable corresponding to the tag with value of SniperTower.
+    private string enemy = "Enemy"; //A variable corresponding to the tag with value of Enemy.
 
-    public float TimeTillShot;
-    public float SpinSpeed;
-    float CoolDown;
-    public int Health;
-    public int Power;
+    Vector3 rotation; //A vector3 used to hold the rotational amount of the slash tower.
+
+    public float TimeTillShot; //A variable holding the value of the time before the sniper tower can fire another shot, set in the Unity Editor.
+    public float SpinSpeed; //A variable holding the multiplier for rotation, set in the Unity Editor.
+    float CoolDown; //A variable used by sniper tower to determine when to fire the next shot.
+    public int Health; //A variable containing the amount of health the tower has, set in the Unity Editor.
+    public int Power; //The amount of damage the tower does on contact with the enemy, set in the Unity Editor.
+    public int Value; //The cost of the tower, set in the Unity Editor.
     #endregion
 
     /// <summary>
     /// Unity's Start method. Inializes critical variables.
     /// </summary>
     void Start () {
-	    rotation.x = 0;
+        rotation.x = 0;
         rotation.y = 1f;
         rotation.z = 0;
         AssignHealthPower();
@@ -58,7 +58,7 @@ public class TowerBehavior : MonoBehaviour {
     }
 
     /// <summary>
-    /// This is how the tower fires its bolt.
+    /// This is how the sniper tower fires its bolt.
     /// </summary>
     void TimedShot()
     {
@@ -74,7 +74,7 @@ public class TowerBehavior : MonoBehaviour {
     }
 
     /// <summary>
-    /// This is how the tower rotates.
+    /// This is how the slash tower rotates.
     /// </summary>
     void Rotate()
     {
@@ -82,7 +82,7 @@ public class TowerBehavior : MonoBehaviour {
     }
 
     /// <summary>
-    /// This method is called whenever damage is dealt to the tower.
+    /// The ReduceHealth method reduces the towers health by a specified amount provided by the parameter.
     /// </summary>
     /// <param name="damage"></param>
     public void ReduceHealth(int damage)
@@ -91,7 +91,7 @@ public class TowerBehavior : MonoBehaviour {
     }
 
     /// <summary>
-    /// This method checks to see if the tower has been destroyed, updates the game level, and spawns two more towers.
+    /// The DestroyedCheck method checks to see if the tower has been destroyed.
     /// </summary>
     void DestroyedCheck()
     {
@@ -102,13 +102,8 @@ public class TowerBehavior : MonoBehaviour {
     }
 
     /// <summary>
-    /// This method spawns new towers in random locations about the play area.
+    /// The Slash method casts a ray looking for anything tagged as enemy.
     /// </summary>
-    public void Spawn()
-    {
-        Instantiate(Hydra, SpawnLocation.transform.position, Quaternion.identity);
-    }
-
     void Slash()
     {
         Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
@@ -124,11 +119,18 @@ public class TowerBehavior : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Attack calls the hit objects EnemyBehavior script, reduce health method for an amount equal to the tower's power.
+    /// </summary>
+    /// <param name="hit"></param>
     void Attack(RaycastHit hit)
     {
         hit.collider.GetComponent<EnemyBehavior>().ReduceHealth(Power);
     }
 
+    /// <summary>
+    /// The AssignHealthPower is effectively a constructor method that gives each spawned tower the appropriate attributes.
+    /// </summary>
     void AssignHealthPower()
     {
         if (transform.tag == sniper)

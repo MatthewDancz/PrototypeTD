@@ -68,11 +68,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BallController.cs" />
     <Compile Include="Assets\Scripts\BoltController.cs" />
     <Compile Include="Assets\Scripts\CanvasText.cs" />
     <Compile Include="Assets\Scripts\CarrierBodyController.cs" />
-    <Compile Include="Assets\Scripts\CharacterTokenController.cs" />
     <Compile Include="Assets\Scripts\CityController.cs" />
     <Compile Include="Assets\Scripts\DoublePropController.cs" />
     <Compile Include="Assets\Scripts\EnemyBehavior.cs" />
@@ -81,12 +79,15 @@
     <Compile Include="Assets\Scripts\LeftDoublePropController.cs" />
     <Compile Include="Assets\Scripts\MarkerController.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PropellerController.cs" />
-    <Compile Include="Assets\Scripts\SpawnAreaController.cs" />
-    <Compile Include="Assets\Scripts\StopZoneController.cs" />
+    <Compile Include="Assets\Scripts\ScoreController.cs" />
     <Compile Include="Assets\Scripts\TimedDestroy.cs" />
     <Compile Include="Assets\Scripts\TowerBehavior.cs" />
+    <Compile Include="Assets\Scripts\UnusedScripts\BallController.cs" />
+    <Compile Include="Assets\Scripts\UnusedScripts\CharacterTokenController.cs" />
+    <Compile Include="Assets\Scripts\UnusedScripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\UnusedScripts\SpawnAreaController.cs" />
+    <Compile Include="Assets\Scripts\UnusedScripts\StopZoneController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

@@ -6,10 +6,10 @@ public class ExitPointController : MonoBehaviour {
     /// <summary>
     /// This is where the variables used by the ExitPointcontroller class.
     /// </summary>
-    #region
-    public GameObject[] Exits;
-    string ground = "Ground";
-    int RangeValue = 49;
+    #region Variables are Exits, ground, and RangeValue.
+    public GameObject[] Exits; //A list of potential exits that can each use a new ExitPointController script.
+    string ground = "Ground"; //A variable that holds the tag value Ground.
+    int RangeValue = 49;//The maximum distance that the ExitPointController script will function.
     #endregion
 
     /// <summary>
